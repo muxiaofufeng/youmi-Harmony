@@ -1,10 +1,10 @@
 {
   "name": "entry",
   "version": "1.0.0",
-  "description": "Please describe the basic information.",
+  "description": "悠米是一款用于鸿蒙的全新开发的开源阅读软件，欢迎您的加入。",
   "main": "",
-  "author": "",
-  "license": "",
+  "author": "wonder-light",
+  "license": "ISC",
   "dependencies": {}
 }
 
