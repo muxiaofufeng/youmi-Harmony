@@ -5,13 +5,24 @@
       "value": "#FFFFFF"
     },
     {
+      "name": "primary",
+      "value": "#D81F04"
+    },
+    {
       "name": "background",
       "value": "#FFFFFF"
-    }
-  ,
+    },
     {
       "name": "on_background",
       "value": "#EFEFEF"
+    },
+    {
+      "name": "font_color",
+      "value": "#000000"
+    },
+    {
+      "name": "on_font_color",
+      "value": "#414141"
     }
   ]
 }
