@@ -3,6 +3,15 @@
     {
       "name": "start_window_background",
       "value": "#FFFFFF"
+    },
+    {
+      "name": "background",
+      "value": "#FFFFFF"
+    }
+  ,
+    {
+      "name": "on_background",
+      "value": "#EFEFEF"
     }
   ]
 }

@@ -66,6 +66,7 @@ struct Index {
           .width('100%')
           .height('100%')
           .borderRadius(10)
+          .backgroundColor($r('app.color.background'))
           .onClick(() => {
             this.toolBarId = item.id!;
           })
@@ -77,5 +78,6 @@ struct Index {
     }
     .width('100%')
     .justifyContent(FlexAlign.SpaceBetween)
+    .shadow({ radius: 15, color: $r('app.color.on_background') })
   }
 }

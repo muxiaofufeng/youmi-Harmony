@@ -7,3 +7,20 @@ export interface BarItem {
   activeIcon?: ResourceStr;
   status?: ToolbarItemStatus;
 }
+
+/**
+ * 列表项参数
+ */
+export interface ListItem {
+  icon?: ResourceStr;
+  title?: ResourceStr;
+  subTitle?: ResourceStr;
+}
+
+/**
+ * 列表项参数
+ */
+export interface ListGroupItem {
+  name?: string;
+  items?: ListItem[];
+}
