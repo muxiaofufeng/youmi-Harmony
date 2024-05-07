@@ -2,15 +2,15 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "module description"
+      "value": "youmi is a newly developed open source reading software for Harmony, welcome you to join"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "the default entry module for the application"
     },
     {
       "name": "EntryAbility_label",
-      "value": "label"
+      "value": "youmi"
     }
   ]
 }

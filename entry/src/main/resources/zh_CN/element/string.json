@@ -2,15 +2,15 @@
   "string": [
     {
       "name": "module_desc",
-      "value": "模块描述"
+      "value": "悠米是一款用于鸿蒙的全新开发的开源阅读软件，欢迎您的加入"
     },
     {
       "name": "EntryAbility_desc",
-      "value": "description"
+      "value": "应用的默认入口模块"
     },
     {
       "name": "EntryAbility_label",
-      "value": "label"
+      "value": "悠米"
     }
   ]
 }
