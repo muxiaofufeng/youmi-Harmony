@@ -24,3 +24,23 @@ export interface ListGroupItem {
   name?: string;
   items?: ListItem[];
 }
+
+/**
+ * 操作项参数
+ */
+export interface OperationItem {
+  /**
+   * 图标
+   */
+  icon?: ResourceStr;
+
+  /**
+   * 点击文本或图标时的回调函数
+   */
+  action?: () => void;
+
+  /**
+   * 菜单项
+   */
+  menus?: Array<MenuElement> | CustomBuilder | WrappedBuilder<Object[]>;
+}
