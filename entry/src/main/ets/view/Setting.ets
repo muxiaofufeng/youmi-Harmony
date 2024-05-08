@@ -1,4 +1,4 @@
-import { ListGroupItem, ListItem } from '../../entity/component/common';
+import { ListGroupItem, ListItem } from '../../common/Types';
 import promptAction from '@ohos.promptAction';
 import { HeaderBar } from '../component/HeaderBar';
 

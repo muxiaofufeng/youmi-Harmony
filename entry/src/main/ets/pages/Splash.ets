@@ -1,5 +1,5 @@
 import router from '@ohos.router';
-import { Constants } from '../../common/constants/Constants';
+import { Constants } from '../../common/Constants';
 
 /**
  * 闪屏页

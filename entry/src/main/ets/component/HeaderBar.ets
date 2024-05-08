@@ -1,4 +1,4 @@
-import { OperationItem } from '../../entity/component/common';
+import { OperationItem } from '../../common/Types';
 
 @Preview
 @Component

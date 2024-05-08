@@ -1,4 +1,4 @@
-import { BarItem } from '../../entity/component/common';
+import { BarItem } from '../../common/Types';
 import { ExploreView } from '../view/Explore';
 import { HomeView } from '../view/Home';
 import { SettingView } from '../view/Setting';

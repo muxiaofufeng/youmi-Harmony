@@ -1,6 +1,6 @@
 import promptAction from '@ohos.promptAction';
-import { OperationItem } from '../../entity/component/common';
-import { $$this } from '../../entity/component/other';
+import { OperationItem } from '../../common/Types';
+import { $$this } from '../../common/other';
 import { HeaderBar } from '../component/HeaderBar';
 
 @Preview
