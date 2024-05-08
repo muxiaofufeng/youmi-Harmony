@@ -1,6 +1,6 @@
-import { ListGroupItem, ListItem } from '../../entity/component/common'
-import { OperationType, SubHeader } from '@ohos.arkui.advanced.SubHeader';
+import { ListGroupItem, ListItem } from '../../entity/component/common';
 import promptAction from '@ohos.promptAction';
+import { HeaderBar } from '../component/HeaderBar';
 
 @Preview
 @Component
@@ -91,58 +91,27 @@ export struct SettingView {
   ];
   private _background: ResourceColor = $r('app.color.background');
   private _on_background: ResourceColor = $r('app.color.on_background');
+  private _font: number = 16;
+  private _subFont: number = 13;
+  private _iconSize: number = 24;
+  private _itemHeight: number = 65;
 
   build() {
     Column() {
-      SubHeader({
-        primaryTitle: '我的',
-        operationType: OperationType.ICON_GROUP,
-        operationItem: [
-          {
-            value: $r('app.media.help'),
-            action: () => {
-              promptAction.showToast({ message: 'demo' })
-            }
+      HeaderBar({ title: '书架', moreMenus: [
+        {
+          icon: $r('app.media.help'),
+          action: () => {
+            promptAction.showToast({ message: 'demo' })
           }
-        ]
-      }).backgroundColor(this._background)
-        .shadow({ radius: 20, color: this._on_background, offsetY: 5 })
-        .zIndex(2)
+        }
+      ] })
 
       List({ space: 10, initialIndex: 0 }) {
         ForEach(this.listItems, (item: ListGroupItem) => {
           ListItemGroup({ header: this.listHeaderBuild(item.name) }) {
             ForEach(item.items, (item: ListItem) => {
-              ListItem() {
-                Button({ type: ButtonType.Normal, stateEffect: true, buttonStyle: ButtonStyleMode.NORMAL }) {
-                  Row() {
-                    if (item.icon) {
-                      Image(item.icon)
-                        .width(24)
-                        .height(24)
-                        .margin({ right: 10, left: 10 })
-                    }
-                    Column() {
-                      if (item.title) {
-                        Text(item.title).fontSize(16)
-                      }
-                      if (item.subTitle) {
-                        Text(item.subTitle).fontSize(13)
-                      }
-                    }
-                    .height('100%')
-                    .justifyContent(FlexAlign.SpaceEvenly)
-                    .alignItems(HorizontalAlign.Start)
-                  }
-                  .height(65)
-                  .width('100%')
-                  .justifyContent(FlexAlign.Start)
-                  .alignItems(VerticalAlign.Center)
-                }
-                .width('100%')
-                .height('auto')
-                .backgroundColor(this._background)
-              }
+              this.listItemBuild(item)
             })
           }
         })
@@ -162,10 +131,44 @@ export struct SettingView {
   }
 
   @Builder
+  listItemBuild(item: ListItem) {
+    ListItem() {
+      Button({ type: ButtonType.Normal, buttonStyle: ButtonStyleMode.NORMAL }) {
+        Row() {
+          if (item.icon) {
+            Image(item.icon)
+              .width(this._iconSize)
+              .height(this._iconSize)
+              .margin({ right: 10, left: 10 })
+          }
+          Column() {
+            if (item.title) {
+              Text(item.title).fontSize(this._font)
+            }
+            if (item.subTitle) {
+              Text(item.subTitle).fontSize(this._subFont)
+            }
+          }
+          .height('100%')
+          .justifyContent(FlexAlign.SpaceEvenly)
+          .alignItems(HorizontalAlign.Start)
+        }
+        .height(this._itemHeight)
+        .width('100%')
+        .justifyContent(FlexAlign.Start)
+        .alignItems(VerticalAlign.Center)
+      }
+      .width('100%')
+      .height('auto')
+      .backgroundColor(this._background)
+    }
+  }
+
+  @Builder
   listHeaderBuild(name: string) {
     if (name) {
       Text(name)
-        .fontSize(13)
+        .fontSize(this._subFont)
         .padding(10)
         .width('100%')
         .backgroundColor(this._background)

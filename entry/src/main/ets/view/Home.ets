@@ -1,21 +1,23 @@
-import { OperationType, SubHeader } from '@ohos.arkui.advanced.SubHeader';
 import promptAction from '@ohos.promptAction';
+import { OperationItem } from '../../entity/component/common';
 import { $$this } from '../../entity/component/other';
+import { HeaderBar } from '../component/HeaderBar';
 
 @Preview
 @Component
 export struct HomeView {
-  @State currentTabIndex: number = 0;
+  @State currentTabIndex: number = 0
   @State isRefreshing: boolean = false
-  @State groups: Array<string> = [
+  @State moreMenuId: number = 0
+  @State groups: string[] = [
     '全部',
     '最近',
     '喜欢',
     '小说',
     '漫画',
     '百合',
-  ];
-  @State items: Array<string> = [
+  ]
+  @State items: string[] = [
     '防静电',
     '防静电开始今日份科技风数据额空间f',
     '防静电开',
@@ -32,45 +34,42 @@ export struct HomeView {
     '防静电开始今日份科技风数据额空间f',
     '防静电开始今日份科技风数据额空间f',
     '防静电',
+  ]
+  @State moreMenus: OperationItem[] = [
+    {
+      icon: $r('app.media.search'),
+      action: () => {
+        promptAction.showToast({ message: '搜索' })
+      }
+    },
+    {
+      icon: $r('app.media.history'),
+      action: () => {
+        promptAction.showToast({ message: '历史记录' })
+      }
+    },
+    {
+      icon: $r('app.media.more'),
+      action: () => {
+        promptAction.showToast({ message: '更多' })
+      },
+      menus: wrapBuilder(moreMenuBuild)
+    }
   ];
-  private controller: TabsController = new TabsController()
+  private _controller: TabsController = new TabsController()
   private _primary: ResourceColor = $r('app.color.primary')
   private _background: ResourceColor = $r('app.color.background')
   private _on_background: ResourceColor = $r('app.color.on_background')
   private _font_color: ResourceColor = $r('app.color.font_color')
   private _on_font_color: ResourceColor = $r('app.color.on_font_color')
-  private imageWidth: number = 110;
+  private _imageWidth: number = 110;
+  private _subFont: number = 14;
+  private _tagSize: SizeResult = { width: 60, height: 32 };
 
   build() {
     Column() {
-      SubHeader({
-        primaryTitle: '书架',
-        operationType: OperationType.ICON_GROUP,
-        operationItem: [
-          {
-            value: $r('app.media.search'),
-            action: () => {
-              promptAction.showToast({ message: '搜索' })
-            }
-          },
-          {
-            value: $r('app.media.history'),
-            action: () => {
-              promptAction.showToast({ message: '历史记录' })
-            }
-          },
-          {
-            value: $r('app.media.more'),
-            action: () => {
-              promptAction.showToast({ message: '更多' })
-            }
-          }
-        ]
-      })
-        .backgroundColor(this._background)
-        .shadow({ radius: 20, color: this._on_background, offsetY: 5 })
-        .zIndex(2)
-      Tabs({ barPosition: BarPosition.Start, index: this.currentTabIndex, controller: this.controller }) {
+      HeaderBar({ title: '书架', moreMenus: this.moreMenus })
+      Tabs({ barPosition: BarPosition.Start, index: this.currentTabIndex, controller: this._controller }) {
         ForEach(this.groups, (item: string, index: number) => {
           TabContent() {
             Refresh({ refreshing: $$this.isRefreshing }) {
@@ -88,7 +87,6 @@ export struct HomeView {
       .vertical(false)
       .scrollable(true)
       .fadingEdge(false)
-      .barGridAlign({ sm: 10, })
       .barMode(BarMode.Scrollable, { margin: 10, nonScrollableLayoutStyle: LayoutStyle.ALWAYS_AVERAGE_SPLIT })
       .flexShrink(1)
       .backgroundColor(this._background)
@@ -97,16 +95,17 @@ export struct HomeView {
     .backgroundColor(this._on_background)
   }
 
+  // 页签标题
   @Builder
   tabBuilder(name: string, index: number) {
     Column() {
       Button({ type: ButtonType.Normal, stateEffect: true, buttonStyle: ButtonStyleMode.NORMAL }) {
         Text(name)
-          .fontSize(14)
+          .fontSize(this._subFont)
           .fontColor(this.currentTabIndex === index ? this._background : this._on_font_color)
       }
-      .width(60)
-      .height(32)
+      .width(this._tagSize.width)
+      .height(this._tagSize.height)
       .backgroundColor(this.currentTabIndex === index ? this._primary : this._background)
       .borderRadius('50%')
       .padding(0)
@@ -119,6 +118,7 @@ export struct HomeView {
     .justifyContent(FlexAlign.Center)
   }
 
+  // 网格列表
   @Builder
   gridBuild() {
     Grid() {
@@ -128,11 +128,11 @@ export struct HomeView {
             Column() {
               Image($r('app.media.splash'))
                 .width('100%')
-                .height(this.imageWidth * 1.16)
+                .height(this._imageWidth * 1.16)
                 .objectFit(ImageFit.Cover)
               Text(item)
                 .margin({ top: 5 })
-                .fontSize(14)
+                .fontSize(this._subFont)
                 .fontColor(this._font_color)
                 .maxLines(2)
                 .textOverflow({ overflow: TextOverflow.Ellipsis })
@@ -140,8 +140,8 @@ export struct HomeView {
             .justifyContent(FlexAlign.Start)
           }
           .padding(10)
-          .width(this.imageWidth)
-          .height(this.imageWidth * 1.16 + 50)
+          .width(this._imageWidth)
+          .height(this._imageWidth * 1.16 + 50)
           .backgroundColor(Color.Transparent)
           .onClick(() => {
             promptAction.showToast({ message: '进入正文页' })
@@ -154,7 +154,7 @@ export struct HomeView {
         }
       })
     }
-    .columnsTemplate(`repeat(auto-fit, ${ this.imageWidth }vp)`)
+    .columnsTemplate(`repeat(auto-fit, ${ this._imageWidth }vp)`)
     .columnsGap(0)
     .rowsGap(0)
     .minCount(3) // 当layoutDirection是Row/RowReverse时，表示可显示的最小列数
@@ -162,4 +162,26 @@ export struct HomeView {
     .enableScrollInteraction(true) // 设置是否支持滚动手势
     .scrollBarWidth(2)
   }
+}
+
+// 更多菜单
+@Builder
+function moreMenuBuild() {
+  Menu() {
+    ForEach([
+      '更新目录',
+      '添加本地',
+      '书架管理',
+    ], (item: string) => {
+      MenuItem({
+        startIcon: $r('app.media.history'),
+        content: item,
+      })
+        .borderRadius(0)
+        .onClick(() => {
+          promptAction.showToast({ message: item })
+        })
+    })
+  }
+  .radius(0)
 }
