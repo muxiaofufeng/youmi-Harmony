@@ -15,19 +15,27 @@ export class Constants {
    */
   static readonly storeId = 'store'
   /**
+   * 源前缀
+   */
+  static readonly sourcePrefix = 'source-'
+  /**
    * 文本源前缀
    */
-  static readonly textPrefix = 'source-text-'
+  static readonly textPrefix = 'source-0-'
   /**
    * 图片源前缀
    */
-  static readonly imagePrefix = 'source-image-'
+  static readonly imagePrefix = 'source-1-'
   /**
    * 视频源前缀
    */
-  static readonly videoPrefix = 'source-video-'
+  static readonly videoPrefix = 'source-2-'
+  /**
+   * 音频源前缀
+   */
+  static readonly audioPrefix = 'source-3-'
   /**
    * 文件源前缀
    */
-  static readonly filePrefix = 'source-file-'
+  static readonly filePrefix = 'source-4-'
 }

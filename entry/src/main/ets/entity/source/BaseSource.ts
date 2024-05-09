@@ -1,21 +1,15 @@
-import BaseContentRule from './rule/BaseContentRule';
-import BaseExploreRule from './rule/BaseExploreRule';
-import BaseInfoRule from './rule/BaseInfoRule';
-import BaseReviewRule from './rule/BaseReviewRule';
-import BaseSearchRule from './rule/BaseSearchRule';
-import BaseSourceRule from './rule/BaseSourceRule';
-import BaseTocRule from './rule/BaseTocRule';
+import BaseContentRule from './ContentRule';
+import BaseExploreRule from './ExploreRule';
+import BaseInfoRule from './InfoRule';
+import BaseReviewRule from './ReviewRule';
+import BaseSearchRule from './SearchRule';
+import BaseSourceRule from './SourceRule';
+import BaseTocRule from './TocRule';
 
 /**
  * 基本源
  */
-export default class BaseSource<SourceRule extends BaseSourceRule,
-SearchRule extends BaseSearchRule,
-ExploreRule extends BaseExploreRule,
-InfoRule extends BaseInfoRule,
-TocRule extends BaseTocRule,
-ContentRule extends BaseContentRule,
-ReviewRule extends BaseReviewRule> {
+export default class BaseSource {
   /**
    * id
    */
@@ -55,29 +49,29 @@ ReviewRule extends BaseReviewRule> {
   /**
    * 源的基础规则
    */
-  sourceRule: SourceRule = null;
+  sourceRule: BaseSourceRule = null;
   /**
    * 搜索规则
    */
-  ruleSearch: SearchRule = null;
+  ruleSearch: BaseSearchRule = null;
   /**
    * 发现规则
    */
-  ruleExplore: ExploreRule = null;
+  ruleExplore: BaseExploreRule = null;
   /**
    * 信息页规则
    */
-  ruleBookInfo: InfoRule = null;
+  ruleBookInfo: BaseInfoRule = null;
   /**
    * 目录页规则
    */
-  ruleToc: TocRule = null;
+  ruleToc: BaseTocRule = null;
   /**
    * 正文页规则
    */
-  ruleContent: ContentRule = null;
+  ruleContent: BaseContentRule = null;
   /**
    * 段评规则
    */
-  ruleReview: ReviewRule = null;
+  ruleReview: BaseReviewRule = null;
 }

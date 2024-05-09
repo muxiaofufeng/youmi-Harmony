@@ -1,4 +1,4 @@
-import { BarItem } from '../../common/Types';
+import { BarItem } from '../../common/ArkType';
 import { ExploreView } from '../view/Explore';
 import { HomeView } from '../view/Home';
 import { SettingView } from '../view/Setting';

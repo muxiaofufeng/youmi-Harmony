@@ -1,4 +1,4 @@
-import { ListGroupItem, ListItem } from '../../common/Types';
+import { ListGroupItem, ListItem } from '../../common/ArkType';
 import promptAction from '@ohos.promptAction';
 import { HeaderBar } from '../component/HeaderBar';
 

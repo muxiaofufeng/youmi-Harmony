@@ -23,7 +23,7 @@ export default abstract class BaseListRule {
    */
   kind: string = '';
   /**
-   * 简介
+   * 简介内容
    */
   intro: string = '';
   /**

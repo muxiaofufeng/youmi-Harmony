@@ -1,4 +1,4 @@
-import BaseListRule from './BaseListRule';
+import BaseListRule from './ListRule';
 
 /**
  * 基本发现规则
