@@ -4,6 +4,7 @@
  * 删除书籍时自动删除章节
  */
 export class Chapter {
+  id: string = ''
   /** 章节地址 */
   url: string = ''
   /** 章节标题 */

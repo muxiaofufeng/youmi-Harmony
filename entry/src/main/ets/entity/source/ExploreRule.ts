@@ -1,7 +1,7 @@
-import BaseListRule from './ListRule';
+import { BaseListRule } from './ListRule';
 
 /**
  * 基本发现规则
  */
-export default class BaseExploreRule extends BaseListRule {
+export class BaseExploreRule extends BaseListRule {
 }

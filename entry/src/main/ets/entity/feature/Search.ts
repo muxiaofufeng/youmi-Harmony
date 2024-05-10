@@ -1,4 +1,5 @@
 import { ESourceType } from '../../../common/TsType';
+import { BaseRule } from '../source/BaseRule';
 
 /**
  * 搜索关键字
@@ -15,65 +16,27 @@ export class SearchKeyword {
 /**
  * 搜索结果
  */
-export class SearchResult {
-  /**
-   * 书源id
-   */
+export class SearchResult extends BaseRule {
+  /** 书源id */
   sourceId: string = ''
-  /**
-   * 书源名称
-   */
+  /** 书源名称 */
   sourceName: string = ''
-  /**
-   * 书名
-   */
-  name: string = ''
-  /**
-   * 作者
-   */
-  author: string = ''
-  /**
-   * 分类
-   */
-  kind?: string = ''
-  /**
-   * 封面URL
-   */
-  coverUrl?: string = ''
-  /**
-   * 简介内容
-   */
-  intro?: string = ''
-  /**
-   * 类型,详见BookType
-   */
+  /** 类型,详见BookType */
   type: ESourceType = ESourceType.Text
-  /**
-   * 最新章节标题
-   */
+  /** 最新章节标题 */
   lastChapterTitle?: string = ''
-  /**
-   * 字数
-   */
+  /** 字数 */
   wordCount?: string = ''
-  /**
-   * 目录URL
-   */
+  /** 目录URL */
   tocUrl: string = ''
-  /**
-   * 开始查询的时间
-   */
-  requestTime: string = ''
-  /**
-   * 接受响应的时间
-   */
-  respondTime: string = ''
-  /**
-   * 书源排序
-   */
+  /** 详情URL */
+  infoUrl: string = ''
+  /** 开始查询的时间 */
+  requestTime: number = 0
+  /** 接受响应的时间 */
+  respondTime: number = 0
+  /** 书源排序 */
   originOrder: number = 0
-  /**
-   * 自定义书籍变量信息(用于书源规则检索书籍信息)
-   */
+  /** 自定义书籍变量信息(用于书源规则检索书籍信息) */
   variable?: string = ''
 }
