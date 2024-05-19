@@ -1,4 +1,4 @@
-import { OperationItem } from '../../common/ArkType';
+import type { OperationItem } from '../../common/ArkType';
 
 @Preview
 @Component

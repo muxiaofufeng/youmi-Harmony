@@ -1,5 +1,3 @@
-import { Size } from '@ohos/hypium';
-
 @Preview
 @Component
 export struct ButtonIcon {

@@ -1,4 +1,5 @@
 import { BarItem } from '../../common/ArkType';
+import { ActionManage } from '../feature/action/Manage';
 import { ExploreView } from '../view/Explore';
 import { HomeView } from '../view/Home';
 import { SettingView } from '../view/Setting';
@@ -27,6 +28,10 @@ struct Index {
   ];
   // 动画转场时间
   private duration: number = 300;
+
+  aboutToAppear(): void {
+    console.log(`${ActionManage.ins['actions']}`);
+  }
 
   build() {
     Navigation() {

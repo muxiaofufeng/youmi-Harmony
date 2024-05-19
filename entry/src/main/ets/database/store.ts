@@ -1,13 +1,13 @@
+import type common from '@ohos.app.ability.common';
+import type { Callback } from '@ohos.base';
 import distributedKVStore from '@ohos.data.distributedKVStore';
-import common from '@ohos.app.ability.common';
-import { Callback } from '@ohos.base';
 import { Constants } from '../../common/Constants';
 
 export default class DbStore {
   /**
    * 键值数据库管理实例
    */
-  static instance: DbStore | null = null;
+  protected static instance: DbStore | null = null;
   /**
    * Ability Context
    */
@@ -34,6 +34,13 @@ export default class DbStore {
     }
     this.kvManager = distributedKVStore.createKVManager(kvManagerConfig);
     this.kvStore = null;
+  }
+
+  /**
+   * 键值数据库管理实例
+   */
+  static get ins(): DbStore {
+    return DbStore.instance;
   }
 
   /**
