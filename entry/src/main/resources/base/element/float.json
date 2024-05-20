@@ -1,0 +1,12 @@
+{
+  "float": [
+    {
+      "name": "icon",
+      "value": "24"
+    },
+    {
+      "name": "icon_lg",
+      "value": "28"
+    }
+  ]
+}
