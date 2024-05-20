@@ -1,6 +1,6 @@
-import DbStore from '../../database/store';
+import DbStore from '../../data/store';
 import { ESourceType } from 'common/TsType';
-import { Carrier, SearchResult } from 'ets/entity';
+import { Carrier, SearchResult } from 'ets/data/entity';
 import { BaseAction, ISourceAction } from './IAction';
 
 /**

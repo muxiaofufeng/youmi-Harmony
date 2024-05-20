@@ -1,6 +1,6 @@
 import type { ESourceType } from '../../../common/TsType';
-import type DbStore from '../../database/store';
-import type { Carrier, SearchResult } from '../../entity/index';
+import type DbStore from '../../data/store';
+import type { Carrier, SearchResult } from '../../data/entity/index';
 
 /**
  * 源操作接口

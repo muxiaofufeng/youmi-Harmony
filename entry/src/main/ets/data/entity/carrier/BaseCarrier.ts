@@ -1,4 +1,4 @@
-import { ESourceType } from '../../../common/TsType';
+import { ESourceType } from '../../../../common/TsType';
 import { Progress } from '../feature/Progress';
 import { BaseRule } from '../source/BaseRule';
 

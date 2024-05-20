@@ -1,6 +1,6 @@
-import { ExploreView } from '../view/Explore';
-import { HomeView } from '../view/Home';
-import { SettingView } from '../view/Setting';
+import { ExploreView } from '../component/view/Explore';
+import { HomeView } from '../component/view/Home';
+import { SettingView } from '../component/view/Setting';
 
 
 @Entry

@@ -1,5 +1,5 @@
-import type DbStore from '../../database/store';
-import type { Carrier, SearchResult } from '../../entity';
+import type DbStore from '../../data/store';
+import type { Carrier, SearchResult } from '../../data/entity';
 import { ESourceType } from '../../../common/TsType';
 import { AudioAction } from './Audio';
 import { BookAction } from './Book';
