@@ -126,7 +126,7 @@ export struct HomeView {
         GridItem() {
           Button({ type: ButtonType.Normal, stateEffect: true, buttonStyle: ButtonStyleMode.NORMAL }) {
             Column() {
-              Image($r('app.media.splash'))
+              Image('/assets/image/splash.png')
                 .width('100%')
                 .height(this._imageWidth * 1.16)
                 .objectFit(ImageFit.Cover)

@@ -3,7 +3,7 @@
 export struct ExploreView {
   build() {
     Column() {
-      Image($r('app.media.splash'))
+      Image('/assets/image/splash.png')
         .width('100%')
         .height('100%')
         .objectFit(ImageFit.Contain)
