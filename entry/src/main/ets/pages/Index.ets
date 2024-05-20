@@ -6,17 +6,30 @@ import { SettingView } from '../view/Setting';
 @Entry
 @Component
 struct Index {
+  /** Tabs 的当前索引 */
   @State currentIndex: number = 0
+  /** 是否显示气泡弹窗 */
+  @State handlePopup: boolean = false
+  /** 需要进行弹窗的 Tabs 索引 */
+  @State currentPopupIndex: number = 0
+  /** Tabs 控制器 */
   private controller: TabsController = new TabsController()
+  /** 图标 */
   private tabBarIcons: Resource[] = [
     $r('app.media.bookshelf'),
     $r('app.media.explore'),
     $r('app.media.user'),
   ]
-  private icon_lg: Resource = $r('app.float.icon_lg')
-
-  aboutToAppear(): void {
-  }
+  /** 长按时的提示 */
+  private tabBarPopup: Resource[] = [
+    $r('app.string.bookshelf'),
+    $r('app.string.explore'),
+    $r('app.string.user'),
+  ]
+  private iconLg: Resource = $r('app.float.icon_lg')
+  private primary: Resource = $r('app.color.primary')
+  private bgColor: Resource = $r('app.color.background')
+  private onFontColor: Resource = $r('app.color.on_font_color')
 
   build() {
     Tabs({ controller: this.controller }) {
@@ -54,18 +67,46 @@ struct Index {
     Column() {
       Button({ type: ButtonType.Normal, buttonStyle: ButtonStyleMode.NORMAL }) {
         Image(this.tabBarIcons[index])
-          .width(this.icon_lg)
-          .height(this.icon_lg)
-          .fillColor(this.currentIndex === index ? $r('app.color.primary') : $r('app.color.on_font_color'))
+          .width(this.iconLg)
+          .height(this.iconLg)
+          .fillColor(this.currentIndex === index ? this.primary : this.onFontColor)
       }
       .width('100%')
       .height('100%')
       .borderRadius(10)
-      .backgroundColor($r('app.color.background'))
+      .backgroundColor(this.bgColor)
     }
     .width('100%')
     .height('100%')
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
+    .gesture(
+      LongPressGesture()
+        .onAction(() => {
+          this.currentPopupIndex = index
+          this.handlePopup = true
+        })
+        .onActionEnd(() => {
+          setTimeout(() => this.handlePopup = false, 500)
+        })
+    )
+    .bindPopup(this.handlePopup && this.currentPopupIndex == index, {
+      builder: (): void => this.popupBuild(),
+      placement: Placement.Bottom, // 气泡的弹出位置
+      backgroundBlurStyle: BlurStyle.Thin,
+      popupColor: this.onFontColor
+    })
+  }
+
+  /**
+   * 气泡弹窗
+   */
+  @Builder
+  popupBuild() {
+    Row() {
+      Text(this.tabBarPopup[this.currentPopupIndex])
+        .fontColor(this.bgColor)
+    }
+    .padding(20)
   }
 }

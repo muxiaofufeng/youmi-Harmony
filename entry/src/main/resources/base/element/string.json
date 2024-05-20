@@ -11,6 +11,18 @@
     {
       "name": "EntryAbility_label",
       "value": "悠米"
+    },
+    {
+      "name": "bookshelf",
+      "value": "书架"
+    },
+    {
+      "name": "explore",
+      "value": "发现"
+    },
+    {
+      "name": "user",
+      "value": "我的"
     }
   ]
 }

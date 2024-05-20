@@ -11,6 +11,18 @@
     {
       "name": "EntryAbility_label",
       "value": "youmi"
+    },
+    {
+      "name": "bookshelf",
+      "value": "bookshelf"
+    },
+    {
+      "name": "explore",
+      "value": "explore"
+    },
+    {
+      "name": "user",
+      "value": "user"
     }
   ]
 }
