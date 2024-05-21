@@ -1,12 +1,36 @@
 {
   "float": [
     {
+      "name": "icon_sm",
+      "value": "20"
+    },
+    {
       "name": "icon",
       "value": "24"
     },
     {
       "name": "icon_lg",
       "value": "28"
+    },
+    {
+      "name": "font_xs",
+      "value": "12"
+    },
+    {
+      "name": "font_sm",
+      "value": "14"
+    },
+    {
+      "name": "font",
+      "value": "16"
+    },
+    {
+      "name": "font_lg",
+      "value": "18"
+    },
+    {
+      "name": "font_xl",
+      "value": "20"
     }
   ]
 }

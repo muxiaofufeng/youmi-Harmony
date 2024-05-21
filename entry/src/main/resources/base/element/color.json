@@ -2,27 +2,48 @@
   "color": [
     {
       "name": "start_window_background",
-      "value": "#FFFFFF"
+      "value": "#FFFFFF",
+      "comment": "开始窗口的背景色"
     },
     {
       "name": "primary",
-      "value": "#D81F04"
+      "value": "#E91E63",
+      "comment": "强调色"
     },
     {
       "name": "background",
-      "value": "#FFFFFF"
+      "value": "#F9F2E8",
+      "comment": "背景色"
+    },
+    {
+      "name": "titleBar",
+      "value": "#FAACA6",
+      "comment": "标题栏颜色"
+    },
+    {
+      "name": "bottomBar",
+      "value": "#FFD5E9",
+      "comment": "底部操作栏颜色"
     },
     {
       "name": "on_background",
-      "value": "#EFEFEF"
+      "value": "#EFEFEF",
+      "comment": "??????"
     },
     {
-      "name": "font_color",
-      "value": "#000000"
+      "name": "fontColor",
+      "value": "#3E3422",
+      "comment": "字体颜色"
     },
     {
-      "name": "on_font_color",
-      "value": "#4d4d4d"
+      "name": "secondFontColor",
+      "value": "#717171",
+      "comment": "二级字体颜色"
+    },
+    {
+      "name": "onFontColor",
+      "value": "#F3F3F3",
+      "comment": "字体的对比颜色"
     }
   ]
 }
