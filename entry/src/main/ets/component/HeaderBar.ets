@@ -3,40 +3,39 @@ import type { OperationItem } from '../../common/ArkType';
 @Preview
 @Component
 export struct HeaderBar {
-  @Prop title: string = '';
-  @Prop fontSize: number = 19;
-  @Prop iconSize: number = 22;
-  @Prop moreMenus: OperationItem[] = [];
-  private _background: ResourceColor = $r('app.color.background')
-  private _on_background: ResourceColor = $r('app.color.on_background')
+  @State title: string = ''
+  @State iconSize: Length = $r('app.float.icon_sm')
+  @State menus: OperationItem[] = []
+  @BuilderParam more: () => void = this.moreBuild
 
   build() {
     Row() {
       Text(this.title)
-        .fontSize(this.fontSize)
+        .fontSize($r('app.float.font_xl'))
         .fontWeight(FontWeight.Bold)
       Row({ space: 4 }) {
-        ForEach(this.moreMenus, (item: OperationItem, index: number) => {
-          Button({ type: ButtonType.Circle, buttonStyle: ButtonStyleMode.NORMAL }) {
+        ForEach(this.menus, (item: OperationItem, index: number) => {
+          Button({ type: ButtonType.Circle, buttonStyle: ButtonStyleMode.TEXTUAL }) {
             Image(item.icon)
               .width(this.iconSize)
               .height(this.iconSize)
           }
-          .padding(8)
-          .backgroundColor(Color.Transparent)
+          .padding(6)
           .onClick(item.action)
-          .bindMenu((item.menus as WrappedBuilder<Object[]>)
-            ? (item.menus as WrappedBuilder<Object[]>).builder
-            : item.menus as Array<MenuElement> | CustomBuilder
-          )
         })
+        this.more()
       }
     }
     .width('100%')
-    .padding({ top: 8, bottom: 8, right: 22, left: 22 })
-    .justifyContent(FlexAlign.SpaceBetween)
-    .backgroundColor(this._background)
-    .shadow({ radius: 20, color: this._on_background, offsetY: 5 })
+    .padding(10)
     .zIndex(2)
+    .justifyContent(FlexAlign.SpaceBetween)
+    .backgroundColor($r('app.color.titleBar'))
+    .shadow(ShadowStyle.OUTER_DEFAULT_SM)
+    .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP])
+  }
+
+  @Builder
+  moreBuild() {
   }
 }

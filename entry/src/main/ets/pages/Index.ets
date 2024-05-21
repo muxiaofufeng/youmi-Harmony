@@ -1,6 +1,6 @@
 import mediaQuery from '@ohos.mediaquery';
 import { ExploreView } from '../component/view/Explore';
-import { HomeView } from '../component/view/Home';
+import { ShelfView } from '../component/view/Shelf';
 import { SettingView } from '../component/view/Setting';
 
 
@@ -33,8 +33,7 @@ struct Index {
   private listener: mediaQuery.MediaQueryListener = mediaQuery.matchMediaSync('(orientation: landscape)')
   private iconLg: Resource = $r('app.float.icon_lg')
   private primary: Resource = $r('app.color.primary')
-  private bgColor: Resource = $r('app.color.background')
-  private onFontColor: Resource = $r('app.color.on_font_color')
+  private secondFontColor: Resource = $r("app.color.secondFontColor")
 
   /**
    * 函数在创建自定义组件的新实例后，在执行其build()函数之前执行
@@ -57,7 +56,7 @@ struct Index {
   build() {
     Tabs({ controller: this.controller }) {
       TabContent() {
-        HomeView()
+        ShelfView()
       }
       .tabBar(this.tabBuilder(0))
 
@@ -74,11 +73,15 @@ struct Index {
     .width('100%')
     .height('100%')
     .vertical(this.horizontal)
+    .scrollable(!this.horizontal)
     .barPosition(this.horizontal ? BarPosition.Start : BarPosition.End)
     .barMode(BarMode.Fixed)
     .onAnimationStart((_, targetIndex) => {
       this.currentIndex = targetIndex
     })
+    .backgroundColor($r('app.color.background'))
+    .barBackgroundColor($r('app.color.bottomBar'))
+    .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
   }
 
   /**
@@ -88,16 +91,15 @@ struct Index {
   @Builder
   tabBuilder(index: number) {
     Column() {
-      Button({ type: ButtonType.Normal, buttonStyle: ButtonStyleMode.NORMAL }) {
+      Button({ type: ButtonType.Normal, buttonStyle: ButtonStyleMode.TEXTUAL }) {
         Image(this.barIcons[index])
           .width(this.iconLg)
           .height(this.iconLg)
-          .fillColor(this.currentIndex === index ? this.primary : this.onFontColor)
+          .fillColor(this.currentIndex === index ? this.primary : this.secondFontColor)
       }
       .width('100%')
       .height('100%')
       .borderRadius(10)
-      .backgroundColor(this.bgColor)
     }
     .width('100%')
     .height('100%')
@@ -117,7 +119,7 @@ struct Index {
       builder: (): void => this.popupBuild(),
       placement: this.horizontal ? Placement.Right : Placement.Bottom, // 气泡的弹出位置
       backgroundBlurStyle: BlurStyle.Thin,
-      popupColor: this.onFontColor
+      popupColor: this.secondFontColor
     })
   }
 
@@ -128,7 +130,7 @@ struct Index {
   popupBuild() {
     Row() {
       Text(this.barPopup[this.currentPopupIndex])
-        .fontColor(this.bgColor)
+        .fontColor($r('app.color.onFontColor'))
     }
     .padding(20)
   }

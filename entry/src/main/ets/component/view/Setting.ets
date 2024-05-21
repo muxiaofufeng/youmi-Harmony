@@ -98,7 +98,7 @@ export struct SettingView {
 
   build() {
     Column() {
-      HeaderBar({ title: '书架', moreMenus: [
+      HeaderBar({ title: '书架', menus: [
         {
           icon: $r('app.media.help'),
           action: () => {
