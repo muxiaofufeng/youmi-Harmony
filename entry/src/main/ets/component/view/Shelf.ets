@@ -1,9 +1,9 @@
 import promptAction from '@ohos.promptAction';
 import { OperationItem } from '../../../common/ArkType';
-import { $$this } from '../../../common/TsType';
 import { HeaderBar } from '../HeaderBar';
 import MeasureText from '@ohos.measure';
 import { ShelfGrid } from '../common/shelf/ShelfGrid';
+import { LazyData } from '../../../common/LazyData';
 
 /**
  * 书架视图
@@ -11,17 +11,18 @@ import { ShelfGrid } from '../common/shelf/ShelfGrid';
 @Preview
 @Component({ freezeWhenInactive: true })
 export struct ShelfView {
-  /** Tabs 的当前索引 */
-  @State currentTabIndex: number = 0
-  @State isRefreshing: boolean = false
-  @State groups: string[] = [
+  /** Swiper 页面的当前索引 */
+  @State currentIndex: number = 0
+  /** 分组 */
+  @State groups: LazyData<string> = new LazyData<string>([
     '全部',
     '最近',
     '喜欢',
     '小说',
     '漫画',
     '百合',
-  ]
+    '漫画',
+  ])
   /** 标题菜单 */
   private titleMenus: OperationItem[] = [
     {
@@ -41,17 +42,28 @@ export struct ShelfView {
   private moreMenus: OperationItem[] = [
     { title: '更新目录', icon: $r('app.media.history') },
     { title: '添加本地', icon: $r('app.media.history') },
+    { title: '添加远程', icon: $r('app.media.history') },
     { title: '书架管理', icon: $r('app.media.history') },
+    { title: '缓存/导出', icon: $r('app.media.history') },
+    { title: '分组管理', icon: $r('app.media.history') },
+    { title: '书架布局', icon: $r('app.media.history') },
+    { title: '导出书单', icon: $r('app.media.history') },
+    { title: '导入书单', icon: $r('app.media.history') },
+    { title: '日志', icon: $r('app.media.journal') },
   ]
-  /** Tabs 控制器 */
-  private controller: TabsController = new TabsController()
-  private primary: ResourceColor = $r('app.color.primary')
-  private bgColor: ResourceColor = $r('app.color.background')
-  private secondFontColor: ResourceColor = $r("app.color.secondFontColor")
-  private fontSm: ResourceStr = $r('app.float.font_sm');
-  private _tagSize: SizeResult = { width: 60, height: 32 };
+  /** Swiper 控制器 */
+  private swiperController: SwiperController = new SwiperController()
+  /** List 控制器 */
+  private listScroller: ListScroller = new ListScroller()
+  /** 分组按钮的宽度 */
+  private tagWidth: number = 60
   /** 文本高度 */
   private textHeight: Length = 30
+  private primary: ResourceColor = $r('app.color.primary')
+  private onFontColor: ResourceColor = $r('app.color.onFontColor')
+  private secondFontColor: ResourceColor = $r("app.color.secondFontColor")
+  private buttonEffect: ResourceColor = $r("app.color.buttonEffect")
+  private fontSm: ResourceStr = $r('app.float.font_sm');
   /** 图标大小 */
   private iconSize: Length = $r('app.float.icon_sm')
 
@@ -77,56 +89,69 @@ export struct ShelfView {
         .bindMenu(this.moreMenuBuild())
       }
 
-      Tabs({ barPosition: BarPosition.Start, controller: this.controller }) {
-        ForEach(this.groups, (item: string, index: number) => {
-          TabContent() {
-            Refresh({ refreshing: $$this.isRefreshing }) {
-              ShelfGrid()
-            }
-            .onRefreshing(() => this.onRefreshing())
-          }
-          .tabBar(this.tabBuilder(item, index))
+      this.tabsBuild()
+      Swiper(this.swiperController) {
+        LazyForEach(this.groups, (item: string) => {
+          ShelfGrid()
         })
       }
-      .vertical(false)
-      .scrollable(true)
-      .fadingEdge(false)
-      .barMode(BarMode.Scrollable)
+      .index($$this.currentIndex)
+      .loop(false)
+      .cachedCount(1)
       .flexShrink(1)
+      .indicator(false)
+      .effectMode(EdgeEffect.None)
+      .nestedScroll(SwiperNestedScrollMode.SELF_FIRST)
       .onAnimationStart((_, targetIndex) => {
-        this.currentTabIndex = targetIndex
+        this.listScroller.scrollToIndex(targetIndex, true, ScrollAlign.CENTER)
       })
     }
     .width('100%')
     .height('100%')
   }
 
-  // 页签标题
+  /**
+   * 页签标题
+   */
   @Builder
-  tabBuilder(name: string, index: number) {
-    Column() {
-      Button({ type: ButtonType.Normal, stateEffect: true, buttonStyle: ButtonStyleMode.NORMAL }) {
-        Text(name)
-          .fontSize(this.fontSm)
-          .fontColor(this.currentTabIndex === index ? this.bgColor : this.secondFontColor)
+  tabsBuild() {
+    Row() {
+      List({ space: 5, initialIndex: 0, scroller: this.listScroller }) {
+        LazyForEach(this.groups, (item: string, index: number) => {
+          ListItem() {
+            Button() {
+              Text(item)
+                .fontSize(this.fontSm)
+                .fontColor(this.currentIndex === index ? this.onFontColor : this.secondFontColor)
+            }
+            .width(this.tagWidth)
+            .height(this.tagWidth / 2)
+            .backgroundColor(this.currentIndex === index ? this.primary : this.buttonEffect)
+            .onClick(() => {
+              this.currentIndex = index;
+              this.listScroller.scrollToIndex(index, true, ScrollAlign.CENTER)
+            })
+          }
+        })
       }
-      .width(this._tagSize.width)
-      .height(this._tagSize.height)
-      .backgroundColor(this.currentTabIndex === index ? this.primary : this.bgColor)
-      .borderRadius('50%')
-      .padding(0)
-      .margin({ right: 5, left: 5 })
-      .onClick(() => {
-        this.currentTabIndex = index;
-        this.controller.changeIndex(index)
-      })
-      .shadow(ShadowStyle.OUTER_DEFAULT_XS)
+      .width('100%')
+      .height(this.tagWidth / 2)
+      .cachedCount(1)
+      .chainAnimation(true)
+      .alignListItem(ListItemAlign.Center)
+      .edgeEffect(EdgeEffect.Spring)
+      .scrollBar(BarState.Off)
+      .listDirection(Axis.Horizontal)
     }
-    .height('100%')
-    .justifyContent(FlexAlign.Center)
+    .width('100%')
+    .padding({ left: 10, right: 10, top: 10, bottom: -10 })
+    .justifyContent(FlexAlign.Start)
+    .alignItems(VerticalAlign.Center)
   }
 
-  // 更多菜单
+  /**
+   * 更多菜单
+   */
   @Builder
   moreMenuBuild() {
     Menu() {
@@ -140,14 +165,5 @@ export struct ShelfView {
     }
     .radius(0)
     .padding(0)
-  }
-
-  /**
-   * 刷新操作
-   */
-  onRefreshing() {
-    promptAction.showToast({ message: '正在刷新' })
-    // TODO: 刷新操作
-    setTimeout(() => this.isRefreshing = false, 1000)
   }
 }

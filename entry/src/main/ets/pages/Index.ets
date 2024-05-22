@@ -17,13 +17,13 @@ struct Index {
   @State horizontal: boolean = false
   /** Tabs 控制器 */
   private controller: TabsController = new TabsController()
-  /** 图标 */
+  /** 底部导航的图标 */
   private barIcons: Resource[] = [
     $r('app.media.bookshelf'),
     $r('app.media.explore'),
     $r('app.media.user'),
   ]
-  /** 长按时的提示 */
+  /** 底部导航长按时的提示 */
   private barPopup: Resource[] = [
     $r('app.string.bookshelf'),
     $r('app.string.explore'),
@@ -73,7 +73,7 @@ struct Index {
     .width('100%')
     .height('100%')
     .vertical(this.horizontal)
-    .scrollable(!this.horizontal)
+    .scrollable(false)
     .barPosition(this.horizontal ? BarPosition.Start : BarPosition.End)
     .barMode(BarMode.Fixed)
     .onAnimationStart((_, targetIndex) => {
