@@ -1,4 +1,5 @@
 {
+  "modelVersion": "5.0.0",
   "name": "youmi",
   "version": "1.0.0",
   "description": "悠米是一款用于鸿蒙的全新开发的开源阅读软件，欢迎您的加入。",
@@ -8,7 +9,7 @@
   "dependencies": {
   },
   "devDependencies": {
-    "@ohos/hypium": "1.0.13",
+    "@ohos/hypium": "1.0.18",
     "@ohos/hamock": "1.0.0"
   }
 }
